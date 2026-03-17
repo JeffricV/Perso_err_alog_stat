@@ -100,12 +100,22 @@
 
                         $(if error)$(error)$(endif)
                     </p>
+
+                    <label>
+                        <img class="ico" src="img/user.svg" alt="#" />
+                        <input name="username" id="username" type="password" value="$(username)" placeholder="Username" />
+                        <span class="toggle-visibility" onclick="toggleUsername()" id="toggleUserBtn">
+                        <img src="img/eye.svg" alt="mostrar" id="eyeUserIcon" />
+                        </span>
+                    </label>
+                    
+                    <!--
+
                     <label>
                         <img class="ico" src="img/user.svg" alt="#" />
                         <input name="username" type="text" value="$(username)" placeholder="Username" />
                     </label>
 
-                    <!--
                     <label>
                         <img class="ico" src="img/password.svg" alt="#" />
                         <input name="password" type="password" placeholder="Password" />
@@ -122,7 +132,7 @@
 
 
                 </form>
-                <p class="info bt">Bienvenidos a xxxxxxx</p>
+                <p class="info bt">Bienvenidos a la Gerencia Mundo Tools Group</p>
 
             </div>
         </div>
