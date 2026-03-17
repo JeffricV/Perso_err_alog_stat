@@ -35,7 +35,21 @@
             document.sendin.submit();
             return false;
         }
-
+        /* Nueva Funcion Agregada para boton de ocultar y mostrar password */
+        function toggleUsername() {
+            var input = document.getElementById("username");
+            var icon = document.getElementById("eyeUserIcon");
+            if (input.type === "password") {
+                input.type = "text";
+                icon.src = "img/eye-off.svg";
+                icon.alt = "ocultar";
+            } 
+            else {
+                input.type = "password";
+                icon.src = "img/eye.svg";
+                icon.alt = "mostrar";
+            }
+        }
     </script>
     $(endif)
     <div class="ie-fixMinHeight">

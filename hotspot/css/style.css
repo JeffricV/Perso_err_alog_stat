@@ -171,6 +171,27 @@ input[type="submit"]:hover {
 
 
 
+/* Botón mostrar/ocultar contraseña */
+.toggle-visibility {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 44px;
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.toggle-visibility img {
+    width: 18px;
+    height: 18px;
+    opacity: 0.5;
+    transition: opacity .2s;
+}
+.toggle-visibility:hover img {
+    opacity: 0.9;
+}
 
 
 
