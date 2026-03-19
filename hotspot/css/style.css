@@ -4,6 +4,7 @@ a, body, div, form, html, img, input, label, p, span {
     padding: 0;
     border: 0;
     font-family: sans-serif, Arial;
+    box-sizing: border-box; /* AGREGAR esta linea */
 }
 body, html {
     min-height: 100%;
@@ -117,7 +118,7 @@ input[type="text"], input[type="password"] {
     width: 100%;
     border: 1px solid;
     height: 44px;
-    padding: 3px 20px 3px 40px;
+    padding: 3px 50px 3px 40px; /* 👈 derecha de 20px → 50px */
     margin-bottom: 20px;
     border-radius: 6px;
     background-color: rgba(255,255,255,.8);
@@ -238,17 +239,34 @@ input[type="submit"]:hover {
     padding: 40px;
     transition: width .3s ease-in-out;
 }
-@media only screen and (min-width:1px) and (max-width:575px) {
+@media only screen and (max-width: 575px) {
     .wrap {
         width: 100%;
+        padding: 24px 16px; /* menos padding lateral en móvil */
+    }
+    input[type="text"], input[type="password"], input[type="submit"] {
+        height: 48px; /* botones más grandes en móvil = más fácil de tocar */
+        font-size: 16px !important; /* evita que iOS haga zoom al enfocar */
+    }
+    .toggle-visibility {
+        width: 48px;
+        height: 48px;
+    }
+    .ico {
+        margin-top: 15px; /* reajusta el ícono al nuevo alto del campo */
     }
 }
-@media (min-width:576px) {
+
+@media (min-width: 576px) and (max-width: 768px) {
+    .wrap {
+        width: 90%; /* no pegado al borde en tablets pequeñas */
+        max-width: 410px;
+    }
+}
+
+@media (min-width: 769px) {
     .wrap {
         width: 410px;
-    }
-    * {
-        font-size: 14px !important;
     }
 }
 
