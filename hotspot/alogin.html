@@ -1,5 +1,83 @@
 <!doctype html>
 <html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <title>Conectando...</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .spinner-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .spinner {
+            width: 56px;
+            height: 56px;
+            border: 6px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .spinner-wrap h1 {
+            color: #fff;
+            font-size: 20px;
+            text-align: center;
+        }
+        .spinner-wrap p {
+            color: rgba(255,255,255,0.7);
+            font-size: 13px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function startRedirect() {
+            $(if popup == 'true')
+            open('$(link-status)', 'hotspot_status', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=290,height=200');
+            $(endif)
+            setTimeout(function() {
+                location.href = unescape('$(link-redirect-esc)');
+            }, 1800);
+        }
+    </script>
+</head>
+<body onload="startRedirect()">
+    <div class="ie-fixMinHeight">
+        <div class="main">
+            <div class="wrap animated fadeIn">
+                <div class="spinner-wrap">
+                    <div class="spinner"></div>
+                    <h1>Conectando...</h1>
+                    <p>Por favor espera, estás siendo redirigido.</p>
+                    <p><a href="$(link-redirect)" style="color:rgba(255,255,255,0.5); font-size:12px;">
+                        Si nada ocurre, haz clic aquí
+                    </a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+<!--
+
+
+<!doctype html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -32,3 +110,4 @@
 </body>
 
 </html>
+-->

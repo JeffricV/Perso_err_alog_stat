@@ -1,5 +1,191 @@
 <html>
 <head>
+    $(if refresh-timeout)
+    <meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+    $(endif)
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <title>Estado de conexión</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .status-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(4px);
+        }
+        .status-title {
+            color: rgba(255,255,255,0.6);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .status-value {
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            word-break: break-all;
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .status-grid .status-card {
+            margin-bottom: 0;
+        }
+        .status-card.full {
+            grid-column: 1 / -1;
+        }
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 22px;
+        }
+        .logout-btn {
+            display: block;
+            width: 100%;
+            height: 48px;
+            background: #da3d41;
+            color: #fff;
+            border: 0;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background .3s;
+            text-align: center;
+            line-height: 48px;
+            text-decoration: none;
+        }
+        .logout-btn:hover {
+            background: #b92f35;
+        }
+        @media (max-width: 400px) {
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+            .status-card.full {
+                grid-column: 1;
+            }
+        }
+    </style>
+    <script>
+        $(if advert-pending == 'yes')
+        var popup = '';
+        function focusAdvert() { if (window.focus) popup.focus(); }
+        function openAdvert() {
+            popup = open('$(link-advert)', 'hotspot_advert', '');
+            setTimeout("focusAdvert()", 1000);
+        }
+        $(endif)
+        function openLogout() {
+            if (window.name != 'hotspot_status') return true;
+            open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=280,height=250');
+            window.close();
+            return false;
+        }
+    </script>
+</head>
+<body $(if advert-pending == 'yes') onload="openAdvert()" $(endif)>
+    <div class="ie-fixMinHeight">
+        <div class="main">
+            <div class="wrap animated fadeIn">
+
+                $(if login-by == 'trial')
+                    <h1>👤 Usuario de prueba</h1>
+                $(elif login-by != 'mac')
+                    <h1>✅ Conectado</h1>
+                $(else)
+                    <h1>✅ Conectado</h1>
+                $(endif)
+
+                <div class="status-grid">
+
+                    <!-- IP -->
+                    <div class="status-card">
+                        <div class="status-title">🌐 Dirección IP</div>
+                        <div class="status-value">$(ip)</div>
+                    </div>
+
+                    <!-- MAC -->
+                    <div class="status-card">
+                        <div class="status-title">💻 MAC</div>
+                        <div class="status-value">$(mac)</div>
+                    </div>
+
+                    <!-- Tiempo conectado -->
+                    <div class="status-card">
+                        <div class="status-title">⏱ Tiempo conectado</div>
+                        <div class="status-value">$(uptime)</div>
+                    </div>
+
+                    <!-- Tiempo restante -->
+                    $(if session-time-left)
+                    <div class="status-card">
+                        <div class="status-title">⏳ Tiempo restante</div>
+                        <div class="status-value">$(session-time-left)</div>
+                    </div>
+                    $(else)
+                    <div class="status-card">
+                        <div class="status-title">⏳ Tiempo restante</div>
+                        <div class="status-value">Sin límite</div>
+                    </div>
+                    $(endif)
+
+                    <!-- Descarga -->
+                    <div class="status-card">
+                        <div class="status-title">⬇ Descarga</div>
+                        <div class="status-value">$(bytes-out-nice)</div>
+                    </div>
+
+                    <!-- Carga -->
+                    <div class="status-card">
+                        <div class="status-title">⬆ Carga</div>
+                        <div class="status-value">$(bytes-in-nice)</div>
+                    </div>
+
+                    <!-- Estado / anuncio pendiente -->
+                    $(if blocked == 'yes')
+                    <div class="status-card full">
+                        <div class="status-title">⚠️ Estado</div>
+                        <div class="status-value">
+                            <a href="$(link-advert)" target="hotspot_advert" style="color:#ffd700;">
+                                Ver anuncio requerido
+                            </a>
+                        </div>
+                    </div>
+                    $(endif)
+
+                </div>
+
+                <!-- Botón logout -->
+                $(if login-by-mac != 'yes')
+                <form action="$(link-logout)" name="logout" onsubmit="return openLogout()">
+                    <button type="submit" class="logout-btn">🔌 Desconectarse</button>
+                </form>
+                $(endif)
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+<!--
+
+<html>
+<head>
 $(if refresh-timeout)
 <meta http-equiv="refresh" content="$(refresh-timeout-secs)">
 $(endif)
@@ -60,7 +246,7 @@ $(endif)
                     $(if login-by-mac != 'yes')
                     <!-- user manager link. if user manager resides on other router, replace $(hostname) by its address
                     <button onclick="document.location='http://$(hostname)/user?subs='; return false;">status</button>
-                    <!-- end of user manager link -->
+                    <!-- end of user manager link --?>
                     <input type="submit" value="Log out">
                     $(endif)
                 </form>
@@ -69,3 +255,6 @@ $(endif)
     </div>
 </body>
 </html>
+
+
+-->

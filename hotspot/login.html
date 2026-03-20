@@ -115,6 +115,17 @@
                         $(if error)$(error)$(endif)
                     </p>
                 -->
+
+                    <!-- Mensaje de error / bienvenida -->
+                    <p class="info $(if error)alert$(endif)">
+                        $(if error)
+                        ⚠️ $(error)
+                        $(else)
+                        Ingresa tu contraseña para conectarte
+                        $(endif)
+                    </p>
+
+
                     <label>
                         <img class="ico" src="img/user.svg" alt="#" />
                         <input name="username" id="username" type="password" value="$(username)" placeholder="Contraseña" />
